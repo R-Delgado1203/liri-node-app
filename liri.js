@@ -3,9 +3,10 @@ var Spotify = require('node-spotify-api');
 var spotifyKeys = require("./keys.js");
 var spotify = new Spotify(spotifyKeys.spotify);
 var request = require('request');
-
 var arg = process.argv;
 var input = "";
+
+//build input string
 for (var i = 3; i < arg.length; i++) {
     if (i > 3 && i < arg.length) {
         input = input + " " + arg[i];
@@ -14,7 +15,10 @@ for (var i = 3; i < arg.length; i++) {
         input += arg[i];
     }
 }
-console.log(input + "\n");
+//check for enough args
+if (arg.length < 4) {
+    return console.log("\nPlease enter a program choice and corresponding search query:\n\n> concert-this <band name here>\n> spotify-this-song <song name here>\n> movie-this <movie name here>\n> do-what-it-says");
+}//end check
 
 switch (arg[2]) {
     case "concert-this":
@@ -49,23 +53,11 @@ switch (arg[2]) {
             if (err) {
                 return console.log('Error occurred: ' + err);
             }
-            data = JSON.stringify(data);
-            //console.log(data);
-            //var trackInfo = data.tracks.items[0];            
-            //var artist = trackInfo.artists[0].name;
-            //var trackName = trackInfo.name;
-            //var preview_url = trackInfo.preview_url;
-            //var albumName = trackInfo.album.name;
-            //console.log("Artist: " + artist + "\n" + "Song: " + trackName + "\n" + "Preview Link: " + preview_url + "\n" + "Album: " + albumName);
-
-
-            var trackInfo = data.tracks.items;
-            for (var i = 0; i < trackInfo.length; i++) {
-                var artist = trackInfo[i].artists.name;
-                var trackName = trackInfo[i].name;
-                var preview_url = trackInfo[i].preview_url;
-                var albumName = trackInfo[i].album.name;
-
+            for (var i = 0; i < data.tracks.items.length; i++) {
+                var artist = data.tracks.items[i].artists[0].name;
+                var trackName = data.tracks.items[i].name;
+                var preview_url = data.tracks.items[i].preview_url;
+                var albumName = data.tracks.items[i].album.name;
                 console.log("\n----------------------------------------\n"
                     + "\nArtist: " + artist + ".\n"
                     + "Song: " + trackName + ".\n"
@@ -73,39 +65,15 @@ switch (arg[2]) {
                     + "Album: " + albumName + "."
                 );//end string build
             }//end for
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        });
+        });//end node-spotify-api call
         break;//end spotify-this-song
     case "movie-this":
+
 
         break;//end movie-this
     case "do-what-it-says":
 
         break;//end do-what-it-says
-    default:
-        console.log("Please enter a program choice and corresponding search query:\n\n> concert-this <band name here>\n> spotify-this-song <song name here>\n> movie-this <movie name here>\n> do-what-it-says");
+    //default:
+    //  console.log("\nPlease enter a program choice and corresponding search query:\n\n> concert-this <band name here>\n> spotify-this-song <song name here>\n> movie-this <movie name here>\n> do-what-it-says");
 }//end switch
-
