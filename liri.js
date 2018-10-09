@@ -6,6 +6,8 @@ var request = require('request');
 var arg = process.argv;
 var input = "";
 var fs = require("fs");
+var moment = require('moment');
+
 
 //build input string
 for (var i = 3; i < arg.length; i++) {
@@ -18,6 +20,9 @@ for (var i = 3; i < arg.length; i++) {
 }
 
 function concertThis(band) {
+    if (!band){
+        return console.log("\nPlease enter a program choice and corresponding search query:\n\n> concert-this <band name here>\n> spotify-this-song <song name here>\n> movie-this <movie name here>\n> do-what-it-says");
+    }
     request("https://rest.bandsintown.com/artists/" + band + "/events?app_id=codingbootcamp", function (error, response, body) {
         body = JSON.parse(body);
         if (error) {
@@ -34,7 +39,7 @@ function concertThis(band) {
                 else {
                     var venueLoc = body[i].venue.city + ", " + body[i].venue.region;
                 }
-                var venueDate = body[i].datetime;
+                var venueDate = moment(body[i].datetime).format("MM/DD/YYYY, h:mm:ss a");
                 console.log(
                     "Lineup: " + lineup + ".\n"
                     + "Venue: " + venueName + ".\n"
