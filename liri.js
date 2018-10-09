@@ -119,24 +119,28 @@ function doWhatItSays() {
 if (arg[2] !== "movie-this" && arg[2] !== "do-what-it-says" && arg.length < 4) {
     return console.log("\nPlease enter a program choice and corresponding search query:\n\n> concert-this <band name here>\n> spotify-this-song <song name here>\n> movie-this <movie name here>\n> do-what-it-says");
 }//end check
-
-switch (arg[2]) {
-    case "concert-this":
-        concertThis(input);
-        break;//end concert-this
-    case "spotify-this-song":
-        spotifyThisSong(input);
-        break;//end spotify-this-song
-    case "movie-this":
-        if (arg.length > 3) {
-            movieThis(input);
-        }
-        else {
-            var nobody = "Mr. Nobody";
-            movieThis(nobody);
-        }
-        break;//end movie-this
-    case "do-what-it-says":
-        doWhatItSays();
-        break;//end do-what-it-says
-}//end switch
+if (arg[2] === "concert-this", "spotify-this-song", "movie-this", "do-what-it-says") {
+    switch (arg[2]) {
+        case "concert-this":
+            concertThis(input);
+            break;//end concert-this
+        case "spotify-this-song":
+            spotifyThisSong(input);
+            break;//end spotify-this-song
+        case "movie-this":
+            if (arg.length > 3) {
+                movieThis(input);
+            }
+            else {
+                var nobody = "Mr. Nobody";
+                movieThis(nobody);
+            }
+            break;//end movie-this
+        case "do-what-it-says":
+            doWhatItSays();
+            break;//end do-what-it-says
+    }//end switch
+}
+else {
+    console.log("\nPlease enter a program choice and corresponding search query:\n\n> concert-this <band name here>\n> spotify-this-song <song name here>\n> movie-this <movie name here>\n> do-what-it-says");
+}
