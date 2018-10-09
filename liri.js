@@ -100,7 +100,7 @@ function doWhatItSays() {
             return console.log(error);
         }//end error
         var dataArr = data.split(",");
-        console.log(dataArr);
+        dataArr[1] = dataArr[1].replace(/"/g, ''); //remove " from random.txt
         switch (dataArr[0]) {
             case "concert-this":
                 concertThis(dataArr[1]);
