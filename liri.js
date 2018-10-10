@@ -20,7 +20,7 @@ for (var i = 3; i < arg.length; i++) {
 }
 
 function concertThis(band) {
-    if (!band){
+    if (!band) {
         return console.log("\nPlease enter a program choice and corresponding search query:\n\n> concert-this <band name here>\n> spotify-this-song <song name here>\n> movie-this <movie name here>\n> do-what-it-says");
     }
     request("https://rest.bandsintown.com/artists/" + band + "/events?app_id=codingbootcamp", function (error, response, body) {
@@ -53,7 +53,7 @@ function concertThis(band) {
 }//end concert-this function
 
 function spotifyThisSong(song) {
-    if (!song){
+    if (!song) {
         return console.log("\nPlease enter a program choice and corresponding search query:\n\n> concert-this <band name here>\n> spotify-this-song <song name here>\n> movie-this <movie name here>\n> do-what-it-says");
     }
     spotify.search({ type: 'track', query: song }, function (err, data) {
@@ -124,27 +124,33 @@ function doWhatItSays() {
 }
 
 //check for enough args
-    switch (arg[2]) {
-        case "concert-this":
-            concertThis(input);
-            break;//end concert-this
-        case "spotify-this-song":
+switch (arg[2]) {
+    case "concert-this":
+        concertThis(input);
+        break;//end concert-this
+    case "spotify-this-song":
+        if (arg.length > 3) {
             spotifyThisSong(input);
-            break;//end spotify-this-song
-        case "movie-this":
-            if (arg.length > 3) {
-                movieThis(input);
-            }
-            else {
-                var nobody = "Mr. Nobody";
-                movieThis(nobody);
-            }
-            break;//end movie-this
-        case "do-what-it-says":
-            doWhatItSays();
-            break;//end do-what-it-says
-            default:
-            console.log("\nPlease enter a program choice and corresponding search query:\n\n> concert-this <band name here>\n> spotify-this-song <song name here>\n> movie-this <movie name here>\n> do-what-it-says");
-    }//end switch
-    
+        }
+        else {
+            var sign = "The Sign, Ace of Base";
+            spotifyThisSong(sign);
+        }
+        break;//end spotify-this-song
+    case "movie-this":
+        if (arg.length > 3) {
+            movieThis(input);
+        }
+        else {
+            var nobody = "Mr. Nobody";
+            movieThis(nobody);
+        }
+        break;//end movie-this
+    case "do-what-it-says":
+        doWhatItSays();
+        break;//end do-what-it-says
+    default:
+        console.log("\nPlease enter a program choice and corresponding search query:\n\n> concert-this <band name here>\n> spotify-this-song <song name here>\n> movie-this <movie name here>\n> do-what-it-says");
+}//end switch
+
 
