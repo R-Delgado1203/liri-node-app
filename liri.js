@@ -1,13 +1,13 @@
 require("dotenv").config();
 var Spotify = require('node-spotify-api');
 var spotifyKeys = require("./keys.js");
-var spotify = new Spotify(spotifyKeys.spotify);
-var request = require('request');
-var arg = process.argv;
-var argLow = arg[2].toLowerCase();
-var input = "";
 var fs = require("fs");
+var request = require('request');
 var moment = require('moment');
+var spotify = new Spotify(spotifyKeys.spotify);
+var arg = process.argv;
+var input = "";
+var argLow = "";
 
 
 //build input string
@@ -32,7 +32,7 @@ function concertThis(band) {
         if (!error && response.statusCode === 200) {
             console.log("\n\n<==========> Here are your results <==========>\n");
             for (var i = 0; i < body.length; i++) {
-                var lineup = body[i].lineup;
+                var lineup = body[i].lineup.join(", ");
                 var venueName = body[i].venue.name;
                 if (body[i].venue.region === "") {
                     var venueLoc = body[i].venue.city + ", " + body[i].venue.country;
@@ -124,6 +124,9 @@ function doWhatItSays() {
     })//end readfile
 }
 //check for enough args
+if (arg[2]){
+    argLow = arg[2].toLowerCase();
+}
 switch (argLow) {
     case "concert-this":
         concertThis(input);
