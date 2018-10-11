@@ -2,9 +2,8 @@
 
 Liri app allows you to search for concert/song/movie data using various API's in a CLI node app.
 
-test
-
 ![alt text](./images/liri.PNG "liri")
+
 
 After entering a valid CLI argument and search team the app will return the requested information as shown below.
 
