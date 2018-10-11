@@ -24,7 +24,9 @@ If no input is given when calling "spotify-this-song" the app will default to se
 
 ![alt text](./images/spotify-this-song-noinput.PNG)
 
+
 Otherwise the searched for song will be returned.
+
 
 ![alt text](./images/spotify-this-song.PNG)
 
