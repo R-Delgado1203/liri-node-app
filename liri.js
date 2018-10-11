@@ -4,6 +4,7 @@ var spotifyKeys = require("./keys.js");
 var spotify = new Spotify(spotifyKeys.spotify);
 var request = require('request');
 var arg = process.argv;
+var argLow = arg[2].toLowerCase();
 var input = "";
 var fs = require("fs");
 var moment = require('moment');
@@ -122,9 +123,8 @@ function doWhatItSays() {
         }//end nested switch
     })//end readfile
 }
-
 //check for enough args
-switch (arg[2]) {
+switch (argLow) {
     case "concert-this":
         concertThis(input);
         break;//end concert-this
